@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="eng" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale">
+        <meta name="author" content="Yuvraj Singh">
+        <meta name="description" content="web developer, web, developer,
+            front-end, html, css, javascript, react, sql">
+        <title>Fakebook</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="./assets/style/index.css">
+        <script type="module" src="./assets/script/user.js" defer></script>
+        <script type="module" src="./assets/script/subscriber.js" defer></script>
+        <script type="module" src="./assets/script/index.js" defer></script>
+    </head>
+    <body>
+        <header>
+            <div class="container">
+                <div class="header-content">
+                    <h1>FAKEBOOK</h1>
+                    <div class="links">
+                        <nav>
+                            <ul class="flex">
+                                <li><a href=#>Friends</a></li>
+                                <li><a href=#>Pages</a></li>
+                                <li><a href=#>Groups</a></li>
+                                <li><a href=#>My ads</a></li>
+                                <li><a href=#>Settings</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="profile-img">
+                        <img src="./assets/img/user.jpeg" alt="Profile Img">
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="container">
+            <main>
+                <section class="input">
+                    <div class="input-box">
+                        <textarea id="text-section" cols="30" rows="10" placeholder="What's new, Simran?"></textarea>
+                        <div class="add-media-button">
+                            <div class="add-media">
+                                <input type="file" id="imageInput" accept="image/*" style="display: none;">
+                                <i class="fa-solid fa-image fa-xl" style="color: #f0f8ff;"></i>
+                                <p></p>
+                            </div>
+                            <div class="v-button">
+                                <button class="button">Post</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div class="new-posts"></div>
+            </main>
+            <div id="user-modal" class="modal">
+                <div class="modal-content" id="user-modal-content"></div>
+            </div>
+        </div>
+    </body>
+</html>
