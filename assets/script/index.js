@@ -1,5 +1,5 @@
 import Subscriber from './subscriber.js';
-
+'use strict';
 const postButton = document.querySelector('.button');
 const textBox = document.getElementById('text-Box');
 const postSection = document.querySelector('.posts-section');
