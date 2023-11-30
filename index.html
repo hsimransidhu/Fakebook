@@ -18,9 +18,9 @@
             <div class="container">
                 <div class="header-content">
                     <h1>FAKEBOOK</h1>
-                    <div class="links">
+                    <div class="navbar"> 
                         <nav>
-                            <ul class="flex">
+                            <ul class="nav"> 
                                 <li><a href=#>Friends</a></li>
                                 <li><a href=#>Pages</a></li>
                                 <li><a href=#>Groups</a></li>
@@ -29,30 +29,30 @@
                             </ul>
                         </nav>
                     </div>
-                    <div class="profile-img">
-                        <img src="./assets/img/user.jpeg" alt="Profile Img">
+                    <div class="profile"> 
+                        <img src="./assets/img/user.png" alt="Profile Img">
                     </div>
                 </div>
             </div>
         </header>
         <div class="container">
             <main>
-                <section class="input">
-                    <div class="input-box">
-                        <textarea id="text-section" cols="30" rows="10" placeholder="What's new, Simran?"></textarea>
-                        <div class="add-media-button">
-                            <div class="add-media">
-                                <input type="file" id="imageInput" accept="image/*" style="display: none;">
-                                <i class="fa-solid fa-image fa-xl" style="color: #f0f8ff;"></i>
+                <section class="postBox">  
+                    <div class="input-box"> 
+                        <textarea id="text-Box" cols="30" rows="10" placeholder="What's new, Simran?"></textarea>
+                        <div class="add-post-button"> 
+                            <div class="add-post"> 
+                                <input type="file" id="add-file" accept="image/*" style="display: none;">
+                                <i class="fa-solid fa-image fa-xl" style="color: #bdcedd;"></i>
                                 <p></p>
                             </div>
-                            <div class="v-button">
+                            <div class="post-button"> 
                                 <button class="button">Post</button>
                             </div>
                         </div>
                     </div>
                 </section>
-                <div class="new-posts"></div>
+                <div class="posts-section"></div>
             </main>
             <div id="user-modal" class="modal">
                 <div class="modal-content" id="user-modal-content"></div>

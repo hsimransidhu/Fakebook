@@ -1,106 +1,98 @@
 import Subscriber from './subscriber.js';
 
-'use strict';
-const subscriberData = {
+const postButton = document.querySelector('.button');
+const textBox = document.getElementById('text-Box');
+const postSection = document.querySelector('.posts-section');
+const addPostButton = document.querySelector('.add-post');
+const postText = document.querySelector('.add-post p');
+const profileImg = document.querySelector('.profile img');
+const modal = document.getElementById('user-modal');
+let modalContent = document.getElementById('user-modal-content');
+
+const subscriberInfo = {
     id: 2004,
     name: 'Simran',
     userName: 'hsimransidhu',
     email: 'simran@mail.com',
     pages: ['TravelwithRia', 'Hackers'],
-    groups: ['GiithubCommunity', 'Benders'],
+    groups: ['GithubCommunity', 'Benders'],
     canMonetize: true,
 };
 
 const subscriber = new Subscriber(
-    subscriberData.id,
-    subscriberData.name,
-    subscriberData.userName,
-    subscriberData.email,
-    subscriberData.pages,
-    subscriberData.groups,
-    subscriberData.canMonetize
+    subscriberInfo.id,
+    subscriberInfo.name,
+    subscriberInfo.userName,
+    subscriberInfo.email,
+    subscriberInfo.pages,
+    subscriberInfo.groups,
+    subscriberInfo.canMonetize
 );
 
-document.addEventListener('DOMContentLoaded', () => {
-    const postButton = document.querySelector('.button');
-    const textArea = document.getElementById('text-section');
-    const newPostsContainer = document.querySelector('.new-posts');
-    const addMediaButton = document.querySelector('.add-media');
-    const mediaCaption = document.querySelector('.add-media p');
-    const profileImg = document.querySelector('.profile-img img');
-    const userModal = document.getElementById('user-modal');
-    let userModalContent = document.getElementById('user-modal-content');
-
-    profileImg.addEventListener('click', () => {
-        userModalContent = userModalContent || document.getElementById('user-modal-content');
-        if (userModalContent) {
-            userModalContent.innerHTML = getUserModalContent(subscriber.getInfo());
-            userModal.style.visibility = 'visible';
-            userModal.style.display = 'block';
-        }
-    });
-
-    document.addEventListener('click', (event) => {
-        if (event.target === userModal) {
-            userModal.style.visibility = 'hidden';
-            userModal.style.display = 'none';
-        }
-    });
-
-    addMediaButton.addEventListener('click', () => {
-        document.getElementById('imageInput').click();
-    });
-
-    document.getElementById('imageInput').addEventListener('change', (event) => {
-        const selectedFile = event.target.files[0];
-    
-        if (selectedFile) {
-            mediaCaption.innerHTML = selectedFile.name;
-            addMediaButton.style.backgroundImage = '';
-        }
-    });
-
-    addMediaButton.addEventListener('click', () => {
-        document.getElementById('imageInput').click();
-    });
-
-    postButton.addEventListener('click', () => {
-        const postContent = textArea.value;
-        const selectedFile = document.getElementById('imageInput').files[0];
-
-        if (postContent.trim() !== '' || selectedFile) {
-            const postElement = createPostElement(subscriber.getInfo(), postContent, selectedFile);
-
-            newPostsContainer.insertBefore(postElement, newPostsContainer.firstChild);
-
-            textArea.value = '';
-            document.getElementById('imageInput').value = '';
-            mediaCaption.innerHTML = '';
-        } else {
-            return ''
-        }
-    });
+addPostButton.addEventListener('click', () => {
+    document.getElementById('add-file').click();
 });
 
-function createPostElement(userInfo, content, selectedFile) {
-    const postElement = document.createElement('div');
-    postElement.classList.add('post');
-    postElement.innerHTML = `
-        <div class="post-header">
-            <img src="./assets/img/user.jpeg" alt="Profile Img">
-            <span class="user-name">${userInfo.name}</span>
-            <span class="current-date">${new Date().toLocaleDateString()}</span>
-        </div>
-        <div class="post-content">
-            <p>${content}</p>
-            ${selectedFile ? `<img class="post-image" src="${URL.createObjectURL(selectedFile)}" alt="Selected Image">` : ''}
-        </div>
-    `;
+document.getElementById('add-file').addEventListener('change', handleFileChange);
 
-    return postElement;
+profileImg.addEventListener('click', handleProfileImgClick);
+
+document.addEventListener('click', (event) => {
+    if (event.target === modal) {
+        hideModal();
+    }
+});
+
+postButton.addEventListener('click', handlePostButtonClick);
+
+function handleFileChange(event) {
+    const selectedFile = event.target.files[0];
+
+    if (selectedFile) {
+        updatePostText(selectedFile.name);
+    }
 }
 
-function getUserModalContent(userInfo) {
+function handleProfileImgClick() {
+    showModal(subscriber.getInfo());
+}
+
+function handlePostButtonClick() {
+    const postArea = textBox.value;
+    const selectedFile = document.getElementById('add-file').files[0];
+
+    if (postArea.trim() !== '' || selectedFile) {
+        const posting = createPost(subscriber.getInfo(), postArea, selectedFile);
+
+        insertPost(posting);
+        clearInputFields();
+    }
+}
+
+function updatePostText(text) {
+    postText.innerHTML = text;
+    addPostButton.style.backgroundImage = '';
+}
+
+function showModal(userInfo) {
+    modalContent = modalContent || document.getElementById('user-modal-content');
+    if (modalContent) {
+        modalContent.innerHTML = getModal(userInfo);
+        showModalElement();
+    }
+}
+
+function hideModal() {
+    modal.style.visibility = 'hidden';
+    modal.style.display = 'none';
+}
+
+function showModalElement() {
+    modal.style.visibility = 'visible';
+    modal.style.display = 'block';
+}
+
+function getModal(userInfo) {
     return `
         <div>
             <img class="model-img" src="./assets/img/user.jpeg" alt="Profile Img">
@@ -113,4 +105,32 @@ function getUserModalContent(userInfo) {
             <p>Monetize: ${userInfo.canMonetize ? 'Yes' : 'No'}</p>
         </div>
     `;
+}
+
+function createPost(userInfo, content, selectedFile) {
+    const posting = document.createElement('div');
+    posting.classList.add('post');
+    posting.innerHTML = `
+        <div class="post-top">
+            <img src="./assets/img/user.jpeg" alt="Profile Img">
+            <span class="user-name">${userInfo.name}</span>
+            <span class="current-date">${new Date().toLocaleDateString()}</span>
+        </div>
+        <div class="post-content">
+            <p>${content}</p>
+            ${selectedFile ? `<img class="post-pic" src="${URL.createObjectURL(selectedFile)}" alt="Selected Image">` : ''}
+        </div>
+    `;
+
+    return posting;
+}
+
+function insertPost(posting) {
+    postSection.insertBefore(posting, postSection.firstChild);
+}
+
+function clearInputFields() {
+    textBox.value = '';
+    document.getElementById('add-file').value = '';
+    postText.innerHTML = '';
 }
